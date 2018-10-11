@@ -1,0 +1,87 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family:verdana;
+	/*Define como se calcularán los cuadrados en base al ancho y al alto con respecto al padding*/
+	box-sizing: border-box;
+}
+
+/*Contenedor de toda la Página*/
+.contenedor {
+	background:#6dccaa;
+	width: 100%;
+	margin:auto;
+
+	/* Flexbox */
+	/*Display es la propiedad que indica como se verán los elementos flex indica que el elemento tendrá características responsivas	*/
+	display:flex;
+	/*Flex-flow indica como se desplegarán los elementos dentro de un contenedor flex*/
+	flex-flow:row wrap;
+}
+
+/*Cuerpo de la Página*/
+body {
+	background:#fff;
+	color: black;
+}
+
+/*Todo lo de la barra superior*/
+header {
+	width:100%;
+	padding:20px;
+	background: #85d4b7;
+
+	/* Flexbox */
+	display: flex;
+	justify-content:space-between;
+	align-items:center;
+	flex-direction:row;
+	flex-wrap:wrap;
+}
+
+/*Cuadro donde va el Logo y el Nombre de la Fundación*/
+header .logo {
+	color:#fff;
+	font-size:30px;
+}
+
+/*Logo*/
+header .logo img {
+	width:50px;
+	vertical-align: top;
+}
+
+header .logo a {
+	color:#fff;
+	text-decoration: none;
+	line-height:50px;
+}
+
+/*Menú Superior*/
+header nav {
+	width:50%;
+
+
+	/* Flexbox */
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+}
+
+header nav a {
+	color:#fff;
+	text-align: center;
+	text-decoration: none;
+	padding:10px;
+}
+
+header nav a:hover {
+	background:#6dccaa;
+}
+
+
+footer{
+	width: 100%;
+	background:gray;
+	padding:10px;
+}

@@ -1,0 +1,78 @@
+{% extends 'maqueta.html' %}
+{% load staticfiles %}
+{% block principal %}
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/carrusel.js' %}"></script>
+<script src="{% static 'js/jquery.bxslider.min.js' %}"></script><!--Script del Carrusel-->
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}"> <!--Ruta para el Archivo Principal de Estilo-->
+<link rel="stylesheet" href="{% static 'css/jquery.bxslider.css' %}"> <!--Ruta de Estilo del Carrusel-->
+
+<div class="carru">
+    <div id="carrusel">
+      <div><img src="{% static 'img/carrusel/C1.jpg' %}"><div id="txtimagen"> "Ahora Darwin está Tranquilo" <br> - Maria</div></div>
+      <div><img src="{% static 'img/carrusel/C2.jpg' %}"><div id="txtimagen"> "Es cómo tener un Hermanito"<br> - Ángelo</div></div>
+      <div><img src="{% static 'img/carrusel/C3.jpg' %}"><div id="txtimagen"> "Es Bueno que Existan Fundaciones Comprometidas con los Perritos"<br> - Luis</div></div>
+      <div><img src="{% static 'img/carrusel/C4.jpg' %}"><div id="txtimagen"> "Me Siento Completa con Puri"<br> - Elisa</div></div>
+    </div>
+</div>
+
+<!--Barra que va Bajo el Carrusel-->
+<div class="barra">
+    <div><b>+ 56 9 98765431</b></div>
+    <div><b>Rescate y Adopción de Perros Callejeros</b></div>
+    <div class="social">
+<a href="#"><img src="{% static 'img/sociales/fb.png' %}" alt="Logo Facebook" title="Facebook"></a>
+        <a href="#"><img src="{% static 'img/sociales/gp.png' %}" alt="Logo Google+" title="Google+"></a>
+        <a href="#"><img src="{% static 'img/sociales/ig.png' %}" alt="Logo Instagram" title="Instagram"></a>
+        <a href="#"><img src="{% static 'img/sociales/em.png' %}" alt="Logo Mensaje" title="Correo"></a>
+    </div>
+</div>
+
+<!--Contenedor de Zona de Información Sobre Rescate y Crowfunding-->
+<div class="info" id="info">
+  <!--Zona de Rescate-->
+  <div class="rescate">
+    <div>
+      <h2>RESCATE</h2>
+      <h3>Etapa Uno</h3>
+      _______________
+      <p><br>Rescatamos Perros en Situación de Peligro y/o Abandono. Los Rehabilitamos y los Preparamos para
+        Buscarles un Hogar.</p>
+    </div>
+    <div><img src="{% static 'img/happy.jpeg' %}"></div>
+  </div>
+
+  <!--Zona de Crowfunding-->
+  <div class="funding">
+    <div><img src="{% static 'img/comida.jpg' %}"></div>
+    <div>
+      <h2>CROWDFUNDING</h2>
+      <h3>FINANCIAMIENTO</h3>
+      _______________
+      <p><br>Sigue Nuestras Redes Sociales para Informarte Acerca de las Diversas Campañas y Actividades que
+        Realizamos para Obtener Financiamiento y Seguir Ayudando.</p>
+    </div>
+    <div>
+      <input type="button" id="campanas" name="campanas" value="Campañas">
+    </div>
+  </div>
+</div>
+
+<!--Zona de Galeria/Collage-->
+<div class="galeria">
+  <div class="caja">
+    <img src="{% static 'img/galeria/G1.jpg' %}" alt="Imagen 1">
+    <img src="{% static 'img/galeria/G2.jpg' %}" alt="Imagen 2">
+    <img src="{% static 'img/galeria/G3.jpg' %}" alt="Imagen 3">
+  </div>
+  <div class="caja largo">
+    <img src="{% static 'img/galeria/G4.jpg' %}" alt="Imagen 4">
+    <img src="{% static 'img/galeria/G5.jpg' %}" alt="Imagen 5">
+  </div>
+  <div class="caja maslargo">
+    <img src="{% static 'img/galeria/G7.jpg' %}" alt="Imagen 6" id="larga">
+    <img src="{% static 'img/galeria/G6.jpg' %}" alt="Imagen 7">
+  </div>
+</div>
+{% endblock %}

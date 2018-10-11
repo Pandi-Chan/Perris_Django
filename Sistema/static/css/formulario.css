@@ -1,0 +1,193 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family:verdana;
+	/*Define como se calcularán los cuadrados en base al ancho y al alto con respecto al padding*/
+	box-sizing: border-box;
+}
+
+.contenedor {
+	background:#6dccaa;
+	max-width:1000px;
+	margin:auto;
+
+	/* Flexbox */
+	/*Display es la propiedad que indica como se verán los elementos flex indica que el elemento tendrá características responsivas	*/
+	display:flex;
+	flex-direction: row;
+	/*Flex-flow indica como se desplegarán los elementos dentro de un contenedor flex*/
+	flex-flow:row wrap;
+}
+
+/*Todo lo de la barra superior*/
+header {
+	width:100%;
+	padding:20px;
+	background: #85d4b7;
+
+	/* Flexbox */
+	display: flex;
+	justify-content:space-between;
+	align-items:center;
+	flex-direction:row;
+	flex-wrap:wrap;
+}
+
+/*Cuadro donde va el Logo y el Nombre de la Fundación*/
+header .logo {
+	color:#fff;
+	font-size:30px;
+}
+
+/*Logo*/
+header .logo img {
+	width:50px;
+	vertical-align: top;
+}
+
+header .logo a {
+	color:#fff;
+	text-decoration: none;
+	line-height:50px;
+}
+
+/*Menú Superior*/
+header nav {
+	width:50%;
+	margin-right: 100px;
+
+	/* Flexbox */
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+}
+
+header nav a {
+	color:#fff;
+	text-align: center;
+	text-decoration: none;
+	padding:10px;
+}
+
+header nav a:hover {
+	background:#6dccaa;
+}
+
+.contenedor h1 {
+	font-size: 30px;
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+	color: #000;
+	text-align: center;
+}
+
+#registration_form{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+#registration_form div{
+	padding-left: 200px;
+}
+
+.form_text {
+	margin-left: 10px;
+	height: 20px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #4A5D77;
+	padding: 5px;
+	text-align: center;
+	align-self: center;
+}
+
+.btn-enviar {
+	width: 10%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+	outline: 0px;
+	align-self: center;
+}
+
+.error {
+	font-size: 15px;
+	font-family: Arial;
+	color: #FF0052;
+	font-weight: bold;
+}
+
+footer{
+	background:gray;
+	padding:10px;
+	width:100%;
+}
+
+@media screen and (max-width: 800px) {
+
+	.contenedor {
+		width: 100%;
+
+		/*Flex*/
+		display: flex;
+		flex-direction:column;
+	}
+
+	header {
+		padding:0;
+
+		/*Flex*/
+		flex-direction:column;
+	}
+
+	header .logo {
+		margin:20px 0;
+	}
+
+	header nav {
+		width: 100%;
+		margin-right: 0px;
+
+		/*Flex*/
+		flex-direction:column;
+	}
+
+	header nav a{
+		background:#6dccaa;
+		width:100%;
+		border: 1px solid #85d4b7;
+	}
+
+	header nav a:hover{
+		background:#60b294;
+	}
+
+	#registration_form{
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	#registration_form div{
+		padding: 5px 0px;
+		text-align: center;
+	}
+
+	.btn-enviar {
+		width: 100%;
+	}
+}
+

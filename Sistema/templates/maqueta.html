@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/maqueta.css' %}"> <!--Ruta para el Archivo Principal de Estilo-->
+        <script src="{% static 'js/prefix.js' %}" type="test/javascript"></script><!--Script para asegurar que en todos los navegadores y dispositivos el sitio se vea igual-->
+    </head>
+    <body>
+        <header> <!--Cabecera de la Página-->
+			<div class="logo">
+				<img src="{% static 'img/logo.png' %}" alt="Logo">
+				<a href="#">Mis Perris</a>
+			</div>
+
+			<nav> <!--Menú Superior-->
+				<a href=" ">Inicio</a>
+				<a href="#info">Quienes Somos</a>
+				<a href="">Servicios</a>
+				<a href="">Contáctanos</a>
+			</nav>
+        </header>
+        <div class="contenedor">
+            {% block principal %}
+            {% endblock %}
+        </div>
+
+      <footer>
+        Desarrollo Web y Mobile
+      </footer>
+    </body>
+</html>
