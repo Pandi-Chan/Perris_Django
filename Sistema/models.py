@@ -9,6 +9,7 @@ class Persona(models.Model):
     direccionPersona=models.CharField(max_length=50)
     numeroFono=models.CharField(max_length=10,null=True,blank=True)
     mailPersona=models.CharField(max_length=50)
+    passwordPersona=models.CharField(max_length=30)
     def __str__(self):
         return self.nombrePersona+ " "+self.apellidoPersona
 

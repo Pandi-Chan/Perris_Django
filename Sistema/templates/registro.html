@@ -1,0 +1,11 @@
+{% extends 'maqueta.html' %}
+{% load staticfiles %}
+
+{% block principal %}
+<form id="registration_form" method="POST">
+    <h1>Registro Usuario</h1>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Enviar" class="btn-enviar" id="btn-enviar">
+</form>
+{% endblock %}
