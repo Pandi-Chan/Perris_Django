@@ -4,23 +4,9 @@
 {% block principal %}
 <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
 <form class="registro_form" method="POST">
-    <h1>Registro Usuario</h1>
+    <h1>Login Usuario</h1>
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Enviar" class="btn-enviar">
 </form>
-
-<table>
-{% if personas %}
-  <td>
-    <tr>Rut</tr>
-  </td>
-  {% for p in personas %}
-    <tr>{{p.rutPersona}}</tr>
-  {% endfor %}
-{% else %}
-  SIN PERSONAS
-{% endif %}
-</table>
-
 {% endblock %}
