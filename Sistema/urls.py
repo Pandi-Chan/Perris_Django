@@ -7,4 +7,5 @@ urlpatterns=[
     url(r'^index/$',views.index),
     url(r'^registro/$',views.registro,name="registro"),
     url(r'^login/$',views.ingreso,name="login"),
+    url(r'^recover/$',views.recuperar,name="recuperar"),
 ]

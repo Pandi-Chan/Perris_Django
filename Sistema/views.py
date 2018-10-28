@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.template import loader
-from .forms import RegistrarPersona, LoginForm
+from .forms import RegistrarPersona, LoginForm, Recuperacion
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .models import Persona
@@ -33,3 +33,9 @@ def ingreso(request):
             login(request,user)
             return redirect('registro')
     return render(request,"login.html",{'form':form})
+
+def recuperar(request):
+    form=Recuperacion(request.POST or None)
+    if form.is_valid():
+        data=form.cleaned_data
+    return render(request,"recover.html",{'form':form})

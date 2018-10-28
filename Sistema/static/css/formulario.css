@@ -12,6 +12,10 @@
 	align-self: center;
 }
 
+.registro_form a{
+	align-self: center;
+}
+
 .btn-enviar {
 	width: 10%;
 	margin-top: 10px;
