@@ -1,6 +1,7 @@
 from django import forms
 
-class RegistrarPersona(forms.Form):
+# Formulario para Registro de una Persona
+class RegistrarPersonaForm(forms.Form):
     rutPersona=forms.CharField(widget=forms.TextInput(),label="Rut")
     passwordPersona=forms.CharField(widget=forms.PasswordInput(),label="Contraseña")
     nombrePersona=forms.CharField(widget=forms.TextInput(),label="Nombre")
@@ -14,10 +15,22 @@ class RegistrarPersona(forms.Form):
     #-----------------
     viviendaPersona=forms.ChoiceField(choices=(('1', 'Casa con Patio Grande'),('2', 'Casa con Patio Pequeño'),('3', 'Casa sin Patio'),('4', 'Departamento')),label="Tipo Vivienda")
 
-
+# Formulario para el Login
 class LoginForm(forms.Form):
     username=forms.CharField(widget=forms.TextInput(),label="Nombre de Usuario")
     password=forms.CharField(widget=forms.PasswordInput(),label="Contraseña")
 
-class Recuperacion(forms.Form):
+# Formulario para Recuperar Contraseña
+class RecuperacionForm(forms.Form):
     username=forms.CharField(widget=forms.TextInput(),label="Rut")
+
+# Formulario para Registro de Mascota
+class RegistrarMascotaForm(forms.Form):
+    image = forms.ImageField()
+    nombreMascota=forms.CharField(widget=forms.TextInput(),label="Nombre")
+    #---------- CAMBIAR A OPTIONS
+    razaMascota=forms.CharField(widget=forms.TextInput(),label="Raza")
+    #---------- CAMBIAR A TEXTAREA
+    descripcionMascotra=forms.CharField(widget=forms.TextInput(),label="Descripcion")
+    #---------- CAMBIAR A OPTIONS
+    estadoMascota=forms.CharField(widget=forms.TextInput(),label="Estado")

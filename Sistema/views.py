@@ -1,12 +1,15 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .forms import RegistrarPersona, LoginForm, Recuperacion
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Persona
+# Importacion de Modelos
+from .models import Persona, Mascota
+# Importacion de Formularios
+from .forms import RegistrarPersonaForm, LoginForm, RecuperacionForm, RegistrarMascotaForm
 
 # Create your views here.
+# Index
 def index(request):
     plantilla=loader.get_template("index.html")
     contexto={
@@ -14,9 +17,10 @@ def index(request):
     }
     return HttpResponse(plantilla.render(contexto,request))
 
-def registro(request):
+# Registro de Personas
+def registroPersona(request):
     personas=Persona.objects.all()
-    form=RegistrarPersona(request.POST or None)
+    form=RegistrarPersonaForm(request.POST or None)
     if form.is_valid():
         data=form.cleaned_data
         regDB=Persona(rutPersona=data.get("rutPersona"),passwordPersona=data.get("passwordPersona"),nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),direccionPersona=data.get("direccionPersona"),numeroFono=data.get("numeroFono"),mailPersona=data.get("mailPersona"))
@@ -24,6 +28,7 @@ def registro(request):
     form=RegistrarPersona()
     return render(request,"registro.html",{'form':form,'personas':personas})
 
+# Login
 def ingreso(request):
     form=LoginForm(request.POST or None)
     if form.is_valid():
@@ -34,8 +39,21 @@ def ingreso(request):
             return redirect('registro')
     return render(request,"login.html",{'form':form})
 
+# Recuperacion Contraseña
 def recuperar(request):
-    form=Recuperacion(request.POST or None)
+    form=RecuperacionForm(request.POST or None)
     if form.is_valid():
         data=form.cleaned_data
     return render(request,"recover.html",{'form':form})
+
+# Registro de Mascota
+def registroMascota(request):
+    form = RegistrarMascotaForm(request.POST, request.FILES)
+    if form.is_valid():
+        data=form.cleaned_data
+        regDB=Mascota(imagen=data.get("image"),nombreMascota=data.get("nombreMascota"),razaMascota=data.get("razaMascota"),descripcionMascotra=data.get("descripcionMascotra"),estadoMascota=data.get("estadoMascota"))
+        regDB.save()
+        message = "Image uploaded succesfully!"
+    else:
+        form = RegistrarMascotaForm()
+    return render(request, "subida.html", {'form': form})
