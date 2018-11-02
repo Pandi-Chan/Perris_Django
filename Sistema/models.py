@@ -23,7 +23,7 @@ class Mascota(models.Model):
     imagen=models.ImageField(upload_to = './media/imagenes/', default = './media/imagenes/None/no-img.jpg')
     nombreMascota=models.CharField(max_length=20)
     razaMascota=models.CharField(max_length=50)
-    descripcionMascotra=models.TextField(max_length=100)
+    descripcionMascotra=models.TextField(null=True, blank=True)
     estadoMascota=models.CharField(max_length=50,default="rescatado")
 
     def __str__(self):

@@ -25,7 +25,7 @@ def registroPersona(request):
         data=form.cleaned_data
         regDB=Persona(rutPersona=data.get("rutPersona"),passwordPersona=data.get("passwordPersona"),nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),direccionPersona=data.get("direccionPersona"),numeroFono=data.get("numeroFono"),mailPersona=data.get("mailPersona"))
         regDB.save()
-    form=RegistrarPersona()
+    form=RegistrarPersonaForm()
     return render(request,"registro.html",{'form':form,'personas':personas})
 
 # Login
@@ -56,4 +56,4 @@ def registroMascota(request):
         message = "Image uploaded succesfully!"
     else:
         form = RegistrarMascotaForm()
-    return render(request, "subida.html", {'form': form})
+    return render(request, "registroMascota.html", {'form': form})

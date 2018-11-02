@@ -26,11 +26,8 @@ class RecuperacionForm(forms.Form):
 
 # Formulario para Registro de Mascota
 class RegistrarMascotaForm(forms.Form):
-    image = forms.ImageField()
+    imagen = forms.ImageField()
     nombreMascota=forms.CharField(widget=forms.TextInput(),label="Nombre")
-    #---------- CAMBIAR A OPTIONS
-    razaMascota=forms.CharField(widget=forms.TextInput(),label="Raza")
-    #---------- CAMBIAR A TEXTAREA
-    descripcionMascotra=forms.CharField(widget=forms.TextInput(),label="Descripcion")
-    #---------- CAMBIAR A OPTIONS
-    estadoMascota=forms.CharField(widget=forms.TextInput(),label="Estado")
+    razaMascota=forms.ChoiceField(choices=(('1', 'Akita Inu'),('2', 'Beagle'),('3', 'Border Collie'),('4', 'Boxer'),('5', 'Bulldog'),('6', 'Dálmata'),('7', 'Golden Retriever'),('8', 'Gran Danés'),('9', 'Labrador'),('10', 'Pastor Alemán'),('11', 'Pit Bull'),('12', 'Pug'),('13', 'Quiltro'),('14', 'Rottweiler'),('15', 'Sabueso'),('16', 'San Bernardo'),('17', 'Terrier')),label="Raza")
+    descripcionMascotra=forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':30}),label="Descripcion",)
+    estadoMascota=forms.ChoiceField(choices=(('1', 'Rescatado'),('2', 'Disponible'),('3', 'Adoptado')),label="Estado")
