@@ -17,7 +17,7 @@ class RegistrarPersonaForm(forms.Form):
 
 # Formulario para el Login
 class LoginForm(forms.Form):
-    username=forms.CharField(widget=forms.TextInput(),label="Nombre de Usuario")
+    username=forms.CharField(widget=forms.TextInput(),label="Rut de Usuario")
     password=forms.CharField(widget=forms.PasswordInput(),label="Contraseña")
 
 # Formulario para Recuperar Contraseña

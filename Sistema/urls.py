@@ -9,5 +9,6 @@ urlpatterns=[
     url(r'^registro/$',views.registroPersona,name="registro"),
     url(r'^login/$',views.ingreso,name="login"),
     url(r'^recover/$',views.recuperar,name="recuperar"),
-    url(r'^registroMascota/$', views.registroMascota, name='imagen'),
+    url(r'^registroPerro/$', views.registroPerro, name='registroPerro'),
+    url(r'^salir/$',views.salir,name="logout"),
 ]

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 # Importacion de Modelos
 from .models import Persona, Mascota
 # Importacion de Formularios
@@ -23,7 +24,8 @@ def registroPersona(request):
     form=RegistrarPersonaForm(request.POST or None)
     if form.is_valid():
         data=form.cleaned_data
-        regDB=Persona(rutPersona=data.get("rutPersona"),passwordPersona=data.get("passwordPersona"),nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),direccionPersona=data.get("direccionPersona"),numeroFono=data.get("numeroFono"),mailPersona=data.get("mailPersona"))
+        new=User.objects.create_user(data.get("rutPersona"),data.get("mailPersona"),data.get("passwordPersona"))
+        regDB=Persona(user=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"))
         regDB.save()
     form=RegistrarPersonaForm()
     return render(request,"registro.html",{'form':form,'personas':personas})
@@ -36,8 +38,12 @@ def ingreso(request):
         user=authenticate(username=data.get("username"),password=data.get("password"))
         if user is not None:
             login(request,user)
-            return redirect('registro')
+            return redirect('/')
     return render(request,"login.html",{'form':form})
+
+def salir(request):
+    logout(request)
+    return redirect('/registroPersona/')
 
 # Recuperacion Contraseña
 def recuperar(request):
@@ -47,13 +53,14 @@ def recuperar(request):
     return render(request,"recover.html",{'form':form})
 
 # Registro de Mascota
-def registroMascota(request):
+@login_required(login_url='login')
+def registroPerro(request):
+    actual=request.user
     form = RegistrarMascotaForm(request.POST, request.FILES)
     if form.is_valid():
         data=form.cleaned_data
         regDB=Mascota(imagen=data.get("image"),nombreMascota=data.get("nombreMascota"),razaMascota=data.get("razaMascota"),descripcionMascotra=data.get("descripcionMascotra"),estadoMascota=data.get("estadoMascota"))
         regDB.save()
-        message = "Image uploaded succesfully!"
     else:
         form = RegistrarMascotaForm()
-    return render(request, "registroMascota.html", {'form': form})
+    return render(request, "registroMascota.html", {'form': form, 'actual':actual})

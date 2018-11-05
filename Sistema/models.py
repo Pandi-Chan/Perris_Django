@@ -1,17 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 # Tabla Persona
 class Persona(models.Model):
-    rutPersona=models.CharField(primary_key=True, max_length=9)
-    passwordPersona=models.CharField(max_length=30)
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
     nombrePersona=models.CharField(max_length=30)
     apellidoPersona=models.CharField(max_length=30)
     fechaNacimiento=models.DateField()
+    numeroFono=models.CharField(max_length=10,null=True,blank=True)
     regionPersona=models.CharField(max_length=50)
     ciudadPersona=models.CharField(max_length=50)
-    numeroFono=models.CharField(max_length=10,null=True,blank=True)
-    mailPersona=models.CharField(max_length=50)
     viviendaPersona=models.CharField(max_length=50)
     tipoPersona=models.CharField(max_length=50, default="usuario")
     def __str__(self):

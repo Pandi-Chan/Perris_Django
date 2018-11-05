@@ -13,10 +13,10 @@
 <!-- <table>
 {% if personas %}
   <td>
-    <tr>Rut</tr>
+    <tr>Rut Nombre Persona</tr>
   </td>
   {% for p in personas %}
-    <tr>{{p.rutPersona}}</tr>
+    <tr>{{ p.user.username }}{{ p.nombrePersona }}</tr>
   {% endfor %}
 {% else %}
   SIN PERSONAS
