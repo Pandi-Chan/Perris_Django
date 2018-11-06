@@ -7,10 +7,11 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 # Importacion de Modelos
 from .models import Persona, Mascota
 # Importacion de Formularios
-from .forms import RegistrarPersonaForm, RegistrarAdminForm, LoginForm, RecuperacionForm, RegistrarMascotaForm
+from .forms import RegistrarPersonaForm, RegistrarAdminForm, LoginForm, RecuperacionForm, RegistrarMascotaForm, RestablecerForm
 
 # Create your views here.
 # Index
@@ -71,6 +72,7 @@ def salir(request):
 # Recuperacion Contraseña
 def olvido(request):
     form=RecuperacionForm(request.POST or None)
+    mensaje=""
     if form.is_valid():
         data=form.cleaned_data
         user=User.objects.get(username=data.get("username"))
@@ -78,30 +80,31 @@ def olvido(request):
                 'Recuperación de contraseña',
                 'Haga click aquí para ingresar una nueva contraseña',
                 'alexander.isaias.caru.barrera@gmail.com',
-                [user.mail],
-                #html_message = 'Haga click <a href="http://127.0.0.1:8000/recuperar?user='+user.username+'">aquí</a> para configurar una nueva contraseña.',
+                [user.email],
+                html_message = 'Pulse <a href="http://localhost:8000/restablecer?user='+user.username+'">aquí</a> para restablecer su contraseña.',
             )
-    return render(request,"recover.html",{'form':form})
+        mensaje='Correo Enviado a '+user.email
+    return render(request,"olvido.html",{'form':form, 'mensaje':mensaje})
 
-# def recuperar(request)
-#     form=RecuperarForm(request.POST or None)
-#     message=""
-#     try:
-#         username=request.GET["user"]
-#     except Exception as e:
-#         username= None
-#     if username is not None:
-#         if form.is_valid():
-#             data=form.cleaned_data
-#             if data.get("password1") == data.get("password2"):
-#                 message="La contraseña se ha cambiado correctamente"
-#                 contra=make_password(data.get("password2"))
-#                 User.objects.filter(username=username).update(password=contra)
-#             else:
-#                 message="Las contraseñas no coinciden"
-#         return render(request,"recuperar.html",{'form':form, 'username':username, 'message':message})
-#     else:
-#         return redirect('login')
+def restablecer(request):
+    form=RestablecerForm(request.POST or None)
+    mensaje=""
+    try:
+        username=request.GET["user"]
+    except Exception as e:
+        username= None
+    if username is not None:
+        if form.is_valid():
+            data=form.cleaned_data
+            if data.get("password_A") == data.get("password_B"):
+                mensaje="La contraseña se ha restablecido"
+                contra=make_password(data.get("password_B"))
+                User.objects.filter(username=username).update(password=contra)
+            else:
+                mensaje="Las contraseñas no coinciden"
+        return render(request,"restablecer.html",{'form':form, 'username':username, 'mensaje':mensaje})
+    else:
+        return redirect('/login/')
 
 # Registro de Perro
 def registroPerro(request):

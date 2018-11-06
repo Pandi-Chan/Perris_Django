@@ -10,7 +10,7 @@ urlpatterns=[
     url(r'^login/$',views.ingreso,name="login"),
     url(r'^olvido/$',views.olvido,name="olvido"),
     # ARREGLAR ESTO
-    # url(r'^recuperar/$',views.recuperar,name="recuperar"),
+    url(r'^restablecer/$',views.restablecer,name="restablecer"),
     #---------------------------
     url(r'^registroPerro/$', views.registroPerro, name='registroPerro'),
     url(r'^registroAdmin/$', views.registroAdmin, name='registroAdmin'),

@@ -121,11 +121,12 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
+# DATOS CORREO
 EMAIL_USE_SSL=False
 EMAIL_USE_TLS=True
 EMAIL_HOST='smtp.gmail.com'
 # CORREO DEL HOST
-EMAIL_HOST_USER='alexander.isaias.caru.barrera@gmail.com'
+EMAIL_HOST_USER='perrisfeos@gmail.com'
 # OJO CON ESTO
-EMAIL_HOST_PASSWORD='el.ahmed95'
+EMAIL_HOST_PASSWORD='perrisduoc'
 EMAIL_PORT=587
