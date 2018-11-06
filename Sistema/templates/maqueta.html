@@ -11,12 +11,31 @@
 				<a href="/index/">Mis Perris</a>
 			</div>
 
-			<nav> <!--Menú Superior-->
-				<a href="/index/">Inicio</a>
-				<a href="/index/#info">Quienes Somos</a>
-				<a href="/registro/">Registrarse</a>
-				<a href="/login/">Ingresar</a>
-			</nav>
+            {% if request.user.is_authenticated %}
+                {% if user.is_staff %}
+                    <nav> <!--Menú Superior-->
+                        <a href="/index/">Inicio</a>
+                        <a href="/registroAdmin/">Registrar Usuario</a>
+                        <a href="/registroPerro/">Registrar Perro</a>
+                        <a href="/salir/">Cerrar Sesión</a>
+                    </nav>
+                {% else %}
+                    <nav> <!--Menú Superior-->
+                        <a href="/index/">Inicio</a>
+                        <a href="/index/#info">Quienes Somos</a>
+                        <a href="/index/">Adoptar</a>
+                        <a href="/salir/">Cerrar Sesión</a>
+                    </nav>
+                {% endif %}
+            {% else %}
+                <nav> <!--Menú Superior-->
+                    <a href="/index/">Inicio</a>
+                    <a href="/index/#info">Quienes Somos</a>
+                    <a href="/registro/">Registrarse</a>
+                    <a href="/login/">Ingresar</a>
+                </nav>
+            {% endif %}
+
         </header>
         <div class="contenedor">
             {% block principal %}

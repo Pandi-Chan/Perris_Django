@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Importacion de Modelos
 from .models import Persona, Mascota
 # Importacion de Formularios
-from .forms import RegistrarPersonaForm, LoginForm, RecuperacionForm, RegistrarMascotaForm
+from .forms import RegistrarPersonaForm, RegistrarAdminForm, LoginForm, RecuperacionForm, RegistrarMascotaForm
 
 # Create your views here.
 # Index
@@ -26,9 +26,28 @@ def registroPersona(request):
     if form.is_valid():
         data=form.cleaned_data
         new=User.objects.create_user(data.get("rutPersona"),data.get("mailPersona"),data.get("passwordPersona"))
+        new.is_staff=False
+        new.save()
         regDB=Persona(user=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"))
         regDB.save()
     form=RegistrarPersonaForm()
+    return render(request,"registro.html",{'form':form,'personas':personas})
+
+# Registro de Personas para Admin
+def registroAdmin(request):
+    personas=Persona.objects.all()
+    form=RegistrarAdminForm(request.POST or None)
+    if form.is_valid():
+        data=form.cleaned_data
+        new=User.objects.create_user(data.get("rutPersona"),data.get("mailPersona"),data.get("passwordPersona"))
+        if data.get("tipoPersona") == "Usuario" or data.get("tipoPersona") == "1":
+            new.is_staff=False
+        else:
+            new.is_staff=True
+        new.save()
+        regDB=Persona(user=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"),tipoPersona=data.get("tipoPersona"))
+        regDB.save()
+    form=RegistrarAdminForm()
     return render(request,"registro.html",{'form':form,'personas':personas})
 
 # Login
