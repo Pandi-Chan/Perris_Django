@@ -19,7 +19,7 @@ class Persona(models.Model):
 # Tabla Mascota
 class Mascota(models.Model):
     codigoMascota=models.AutoField(primary_key=True)
-    imagen=models.ImageField(upload_to = './media/imagenes/', default = './media/imagenes/None/no-img.jpg')
+    imagen=models.ImageField(upload_to='./media/imagenes/')
     nombreMascota=models.CharField(max_length=20)
     razaMascota=models.CharField(max_length=50)
     descripcionMascotra=models.TextField(null=True, blank=True)

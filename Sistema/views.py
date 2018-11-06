@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
+# Validaciones
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -43,7 +44,7 @@ def ingreso(request):
 
 def salir(request):
     logout(request)
-    return redirect('/registroPersona/')
+    return redirect('/index/')
 
 # Recuperacion Contraseña
 def recuperar(request):
@@ -53,14 +54,14 @@ def recuperar(request):
     return render(request,"recover.html",{'form':form})
 
 # Registro de Mascota
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def registroPerro(request):
-    actual=request.user
-    form = RegistrarMascotaForm(request.POST, request.FILES)
+    #actual=request.user
+    perros=Mascota.objects.all()
+    form=RegistrarMascotaForm(request.POST, request.FILES)
     if form.is_valid():
         data=form.cleaned_data
-        regDB=Mascota(imagen=data.get("image"),nombreMascota=data.get("nombreMascota"),razaMascota=data.get("razaMascota"),descripcionMascotra=data.get("descripcionMascotra"),estadoMascota=data.get("estadoMascota"))
+        regDB=Mascota(imagen=data.get("imagen"),nombreMascota=data.get("nombreMascota"),razaMascota=data.get("razaMascota"),descripcionMascotra=data.get("descripcionMascotra"),estadoMascota=data.get("estadoMascota"))
         regDB.save()
-    else:
-        form = RegistrarMascotaForm()
-    return render(request, "registroMascota.html", {'form': form, 'actual':actual})
+    form = RegistrarMascotaForm()
+    return render(request, "registroPerro.html", {'form': form, 'perros':perros})
