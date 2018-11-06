@@ -40,7 +40,8 @@ def registroAdmin(request):
     if form.is_valid():
         data=form.cleaned_data
         new=User.objects.create_user(data.get("rutPersona"),data.get("mailPersona"),data.get("passwordPersona"))
-        if data.get("tipoPersona") == "Usuario" or data.get("tipoPersona") == "1":
+        tipo = data.get("tipoPersona")
+        if tipo == "Usuario":
             new.is_staff=False
         else:
             new.is_staff=True

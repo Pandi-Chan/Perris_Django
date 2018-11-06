@@ -13,8 +13,9 @@ class Persona(models.Model):
     ciudadPersona=models.CharField(max_length=50)
     viviendaPersona=models.CharField(max_length=50)
     tipoPersona=models.CharField(max_length=50, default="usuario")
-    def __str__(self):
-        return self.nombrePersona+ " "+self.apellidoPersona
+
+    # def __str__(self):
+    #     return self.nombrePersona+ " "+self.apellidoPersona
 
 # Tabla Mascota
 class Mascota(models.Model):
@@ -25,8 +26,8 @@ class Mascota(models.Model):
     descripcionMascotra=models.TextField(null=True, blank=True)
     estadoMascota=models.CharField(max_length=50,default="rescatado")
 
-    def __str__(self):
-        return self.nombreMascota
+    # def __str__(self):
+    #     return self.nombreMascota
 
 # Tabla de Relacion Persona/Mascota
 class MascotaPersona(models.Model):
