@@ -120,3 +120,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
+
+EMAIL_USE_SSL=False
+EMAIL_USE_TLS=True
+EMAIL_HOST='smtp.gmail.com'
+# CORREO DEL HOST
+EMAIL_HOST_USER='alexander.isaias.caru.barrera@gmail.com'
+# OJO CON ESTO
+EMAIL_HOST_PASSWORD='el.ahmed95'
+EMAIL_PORT=587

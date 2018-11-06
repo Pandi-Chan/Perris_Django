@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
+# Correos
+from django.core.mail import send_mail
 # Validaciones
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -67,16 +69,42 @@ def salir(request):
     return redirect('/index/')
 
 # Recuperacion Contraseña
-def recuperar(request):
+def olvido(request):
     form=RecuperacionForm(request.POST or None)
     if form.is_valid():
         data=form.cleaned_data
+        user=User.objects.get(username=data.get("username"))
+        send_mail(
+                'Recuperación de contraseña',
+                'Haga click aquí para ingresar una nueva contraseña',
+                'alexander.isaias.caru.barrera@gmail.com',
+                [user.mail],
+                #html_message = 'Haga click <a href="http://127.0.0.1:8000/recuperar?user='+user.username+'">aquí</a> para configurar una nueva contraseña.',
+            )
     return render(request,"recover.html",{'form':form})
 
-# Registro de Mascota
-# @login_required(login_url='login')
+# def recuperar(request)
+#     form=RecuperarForm(request.POST or None)
+#     message=""
+#     try:
+#         username=request.GET["user"]
+#     except Exception as e:
+#         username= None
+#     if username is not None:
+#         if form.is_valid():
+#             data=form.cleaned_data
+#             if data.get("password1") == data.get("password2"):
+#                 message="La contraseña se ha cambiado correctamente"
+#                 contra=make_password(data.get("password2"))
+#                 User.objects.filter(username=username).update(password=contra)
+#             else:
+#                 message="Las contraseñas no coinciden"
+#         return render(request,"recuperar.html",{'form':form, 'username':username, 'message':message})
+#     else:
+#         return redirect('login')
+
+# Registro de Perro
 def registroPerro(request):
-    #actual=request.user
     perros=Mascota.objects.all()
     form=RegistrarMascotaForm(request.POST, request.FILES)
     if form.is_valid():
@@ -85,3 +113,16 @@ def registroPerro(request):
         regDB.save()
     form = RegistrarMascotaForm()
     return render(request, "registroPerro.html", {'form': form, 'perros':perros})
+
+# Registro de Mascota
+# REGISTRO DE MASCOTA CON PERSONA
+# ARREGLARR--------------------------------------------------
+# def registroPerro(request):
+#     perros=Mascota.objects.all()
+#     form=RegistrarMascotaForm(request.POST, request.FILES)
+#     if form.is_valid():
+#         data=form.cleaned_data
+#         regDB=Mascota(imagen=data.get("imagen"),nombreMascota=data.get("nombreMascota"),razaMascota=data.get("razaMascota"),descripcionMascotra=data.get("descripcionMascotra"),estadoMascota=data.get("estadoMascota"))
+#         regDB.save()
+#     form = RegistrarMascotaForm()
+#     return render(request, "registroPerro.html", {'form': form, 'perros':perros})
