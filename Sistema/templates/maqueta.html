@@ -1,6 +1,7 @@
 {% load staticfiles %}
 <html>
     <head>
+        <title>{{titulo}}</title>
         <link rel="stylesheet" href="{% static 'css/maqueta.css' %}"> <!--Ruta para el Archivo Principal de Estilo-->
         <script src="{% static 'js/prefix.js' %}" type="test/javascript"></script><!--Script para asegurar que en todos los navegadores y dispositivos el sitio se vea igual-->
     </head>
@@ -11,15 +12,18 @@
 				<a href="/index/">Mis Perris</a>
 			</div>
 
-            {% if request.user.is_authenticated %}
-                {% if user.is_staff %}
+          <!-- El Primer If, Te verifica si hay un usuario ya logeado o no, sin importar su tipo de usuario  -->
+            {% if request.user.is_authenticated %}  <!-- Si hay un Usuario Logueado, Mostrará una de las 2 opciones, dependiendo el tipo de Usuario-->
+                {% if user.is_staff %} <!-- Si el usuario es Staff (Admin), Muestra ese Header (REVISAR VIEWS) -->
                     <nav> <!--Menú Superior-->
                         <a href="/index/">Inicio</a>
                         <a href="/registroAdmin/">Registrar Usuario</a>
+                        <a href="/registroAdmin/">Gestionar Usuario</a>
                         <a href="/registroPerro/">Registrar Perro</a>
+                        <a href="/registroPerro/">Gestionar Perro</a>
                         <a href="/salir/">Cerrar Sesión</a>
                     </nav>
-                {% else %}
+                {% else %} <!-- Si es un Usuario normal, muestra esto -->
                     <nav> <!--Menú Superior-->
                         <a href="/index/">Inicio</a>
                         <a href="/index/#info">Quienes Somos</a>
@@ -27,7 +31,7 @@
                         <a href="/salir/">Cerrar Sesión</a>
                     </nav>
                 {% endif %}
-            {% else %}
+            {% else %} <!-- Si no está Logueado le Muestra el Header por Defecto -->
                 <nav> <!--Menú Superior-->
                     <a href="/index/">Inicio</a>
                     <a href="/index/#info">Quienes Somos</a>

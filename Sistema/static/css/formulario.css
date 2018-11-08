@@ -39,18 +39,29 @@
 
 @media screen and (max-width: 800px) {
 
-	#registration_form{
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-	}
+.formu{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
 
-	#registration_form div{
-		padding: 5px 0px;
-		text-align: center;
-	}
+.formu h1{
+	width: 100%;
+	text-align: center;
+}
 
-	.btn-enviar {
-		width: 100%;
-	}
+.formu p{
+	width: 100%;
+	align-self: center;
+}
+
+.formu a{
+	width: 100%;
+	text-align: center;
+}
+
+.btn-enviar{
+	width: 100%;
+}
+
 }

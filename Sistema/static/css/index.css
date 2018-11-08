@@ -162,43 +162,6 @@
 
 @media screen and (max-width: 800px) {
 	/*https://www.w3schools.com/cssref/css3_pr_mediaquery.asp*/
-	.contenedor {
-		width: 100%;
-
-		/*Flex*/
-		display: flex;
-		flex-direction:column;
-	}
-
-	header {
-		padding:0;
-
-		/*Flex*/
-		flex-direction:column;
-	}
-
-	header .logo {
-		margin:20px 0;
-	}
-
-	header nav {
-		width: 100%;
-		margin-right: 0px;
-
-		/*Flex*/
-		flex-direction:column;
-	}
-
-	header nav a{
-		background:#6dccaa;
-		width:100%;
-		border: 1px solid #85d4b7;
-	}
-
-	header nav a:hover{
-		background:#60b294;
-	}
-
 	.carru{
 		width: 100%;
 	}

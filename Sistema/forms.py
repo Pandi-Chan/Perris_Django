@@ -1,4 +1,19 @@
 from django import forms
+#Tupla de Regiones
+regiones=(('1','Arica y Parinacota'),('2','Tarapacá'),('3','Antofagasta'),
+    ('4','Atacama',),
+    ('5','Coquimbo'),
+    ('6','Valparaiso'),
+    ('7','Metropolitana de Santiago'),
+    ('8',"Libertador General Bernardo O'Higgins"),
+    ('9','Maule'),
+    ('10','Biobío'),
+    ('11','La Araucanía'),
+    ('12','Los Ríos'),
+    ('13','Los Lagos'),
+    ('14','Aisén del General Carlos Ibáñez del Campo'),
+    ('15','Magallanes y de la Antártica Chilena'),
+    ('16','Ñuble'),)
 
 # Formulario para Registro de una Persona
 class RegistrarPersonaForm(forms.Form):
@@ -10,7 +25,7 @@ class RegistrarPersonaForm(forms.Form):
     fechaNacimiento=forms.DateField(widget=forms.SelectDateWidget(years=range(1910,2001)),label="Fecha de Nacimiento")
     numeroFono=forms.CharField(widget=forms.TextInput(),label="Telefono")
     #----------- CAMBIAR CAMPOS
-    regionPersona=forms.ChoiceField(choices=(('1', 'First and only',),),label="Región")
+    regionPersona=forms.ChoiceField(choices=(regiones),label="Región")
     ciudadPersona=forms.ChoiceField(choices=(('1', 'First and only',),),label="Ciudad")
     #-----------------
     viviendaPersona=forms.ChoiceField(choices=(('1', 'Casa con Patio Grande'),('2', 'Casa con Patio Pequeño'),('3', 'Casa sin Patio'),('4', 'Departamento')),label="Tipo Vivienda")
@@ -25,7 +40,7 @@ class RegistrarAdminForm(forms.Form):
     fechaNacimiento=forms.DateField(widget=forms.SelectDateWidget(years=range(1910,2001)),label="Fecha de Nacimiento")
     numeroFono=forms.CharField(widget=forms.TextInput(),label="Telefono")
     #----------- CAMBIAR CAMPOS
-    regionPersona=forms.ChoiceField(choices=(('1', 'First and only',),),label="Región")
+    regionPersona=forms.ChoiceField(choices=(regiones),label="Región")
     ciudadPersona=forms.ChoiceField(choices=(('1', 'First and only',),),label="Ciudad")
     #-----------------
     viviendaPersona=forms.ChoiceField(choices=(('1', 'Casa con Patio Grande'),('2', 'Casa con Patio Pequeño'),('3', 'Casa sin Patio'),('4', 'Departamento')),label="Tipo Vivienda")

@@ -3,12 +3,18 @@
 
 {% block principal %}
 <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
-<form  role="form"  enctype="multipart/form-data"  method="POST" class="formu">
-  <h1>Registro Perro</h1>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Enviar" class="btn-enviar">
-</form>
+{% if actual.is_staff %}
+  <form  role="form"  enctype="multipart/form-data"  method="POST" class="formu">
+    <h1>Registro Perro</h1>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Enviar" class="btn-enviar">
+  </form>
+{% else %}
+  <form class="formu">
+    <h1>Sin Permisos Suficientes</h1>
+  </form>
+{% endif %}
 
 <!-- <table>
 {% if perros %}

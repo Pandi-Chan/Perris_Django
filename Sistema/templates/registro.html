@@ -3,24 +3,37 @@
 
 {% block principal %}
 <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
-<form class="formu" method="POST">
-    <h1>Registro Usuario</h1>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Registrar" class="btn-enviar">
-</form>
-
-<!-- <table>
-{% if personas %}
-  <td>
-    <tr>Rut Nombre Persona</tr>
-  </td>
-  {% for p in personas %}
-    <tr>{{ p.user.username }}{{ p.nombrePersona }}</tr>
-  {% endfor %}
+{% if registro == 1 %}
+  <form class="formu" method="POST">
+      <h1>Registro Usuario</h1>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Registrar" class="btn-enviar">
+  </form>
 {% else %}
-  SIN PERSONAS
+  {% if actual.is_staff %}
+    <form class="formu" method="POST">
+        <h1>Registro Usuario</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Registrar" class="btn-enviar">
+    </form>
+  {% else %}
+    <form class="formu">
+      <h1>Sin Permisos Suficientes</h1>
+    </form>
+  {% endif %}
 {% endif %}
-</table> -->
-
+  <!-- <table>
+  {% if personas %}
+    <td>
+      <tr>Rut Nombre Persona</tr>
+    </td>
+    {% for p in personas %}
+      <tr>{{ p.user.username }}{{ p.nombrePersona }}</tr>
+    {% endfor %}
+  {% else %}
+    SIN PERSONAS
+  {% endif %}
+  </table> -->
 {% endblock %}
