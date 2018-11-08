@@ -25,7 +25,11 @@
                             <td>{{ p.descripcion }}</td>
                             <td><img src='{{ p.imagen|cut:"Sistema" }}' width="100px" height="50px"></td>
                             <td>{{ p.estadoMascota }}</td>
-                            <td>Eliminar, Editar</td>
+                            <td>
+                                {% if p %}
+                                    <a href="{% url 'borrarPerro' p.codigoMascota %}">Eliminar</a>
+                                {% endif %}
+                            </td>
                         </tr>
                         {%endfor%}
                     {% else %}

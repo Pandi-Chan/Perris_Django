@@ -31,7 +31,7 @@ def registroPersona(request):
         new=User.objects.create_user(data.get("rutPersona"),data.get("mailPersona"),data.get("passwordPersona"))
         new.is_staff=False
         new.save()
-        regDB=Persona(user=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"))
+        regDB=Persona(usuario=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"))
         regDB.save()
         mensaje='Usuario '+regDB.nombrePersona+' Registrado'
     form=RegistrarPersonaForm()
@@ -57,7 +57,7 @@ def registroAdmin(request):
             # Pero si tiene como Tipo "Admnistrador", queda en True. Gracias a esto puedes hacer la diferencia en el HTML Maqueta
             new.is_staff=True
         new.save() # IMPORTANTE PONERLE SAVE Y RECORDAR QUE LOS USUARIOS CREADOS DESDE QUE EDITAS ESTO SON LOS QUE TENDRAN LOS PRIVILEGIOS DE Admin
-        regDB=Persona(user=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"),tipoPersona=data.get("tipoPersona"))
+        regDB=Persona(usuario=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"),tipoPersona=data.get("tipoPersona"))
         regDB.save()
         mensaje='Usuario '+regDB.nombrePersona+' Registrado'
     form=RegistrarAdminForm()
@@ -156,6 +156,12 @@ def listaPerro(request):
     actual=request.user
     perros=Mascota.objects.all()
     return render (request,"listaPerro.html",{'perros':perros,'actual':actual,'titulo':"Lista de Perros",})
+
+# Borrar Perro
+def borrarPerro(request, postid):
+    objeto=Mascota.objects.filter(codigoMascota=postid)
+    objeto.delete()
+    return redirect("/listaPerro/")
 
 # Lista de Personas
 @login_required(login_url='login')

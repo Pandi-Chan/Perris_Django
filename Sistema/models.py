@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 # Tabla Persona
 class Persona(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
+    usuario=models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
     nombrePersona=models.CharField(max_length=30)
     apellidoPersona=models.CharField(max_length=30)
     fechaNacimiento=models.DateField()

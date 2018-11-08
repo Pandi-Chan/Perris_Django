@@ -14,5 +14,6 @@ urlpatterns=[
     url(r'^registroAdmin/$', views.registroAdmin, name='registroAdmin'),
     url(r'listaPerro/$',views.listaPerro,name="listaPerro"),
     url(r'listaPersona/$',views.listaPersona,name="listaPersona"),
+    url(r'^borrarPerro/(?P<postid>\d+)/', views.borrarPerro, name='borrarPerro'),
     url(r'^salir/$',views.salir,name="logout"),
 ]

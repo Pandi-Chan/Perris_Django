@@ -18,23 +18,21 @@
                         <td id="top">Ciudad</td>
                         <td id="top">Tipo de Casa</td>
                         <td id="top">Tipo de Usuario</td>
-                        <td id="top">Acciones</td>
                       </tr>
                   <tbody>
                   {% if personas %}
                       {% for p in personas %}
                       <tr>
-                          <td>{{ p.user.username }}</td>
+                          <td>{{ p.usuario.username }}</td>
                           <td>{{ p.nombrePersona }}</td>
                           <td>{{ p.apellidoPersona }}</td>
                           <td>{{ p.fechaNacimiento }}</td>
-                          <td>{{ p.user.email }}</td>
+                          <td>{{ p.usuario.email }}</td>
                           <td>{{ p.numeroFono }}</td>
                           <td>{{ p.regionPersona }}</td>
                           <td>{{ p.ciudadPersona }}</td>
                           <td>{{ p.viviendaPersona }}</td>
                           <td>{{ p.tipoPersona }}</td>
-                          <td></td>
                       </tr>
                       {%endfor%}
                   {% endif %}
