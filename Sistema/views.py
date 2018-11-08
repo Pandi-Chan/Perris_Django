@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
 # Correos
@@ -19,11 +19,11 @@ def index(request):
     plantilla=loader.get_template("index.html")
     return HttpResponse(plantilla.render({'titulo':"Mis Perris"},request))
 
-
 # ------------------------------------------ FORMULARIOS ------------------------------------------
 # Registro de Personas (DESDE FUERA DEL SISTEMA, USUARIOS NUEVOS)
 def registroPersona(request):
-    registro=1
+    mensaje=""
+    registro=1 #Dependiendo este número, es el Formulario que Mostrará
     personas=Persona.objects.all()
     form=RegistrarPersonaForm(request.POST or None)
     if form.is_valid():
@@ -33,14 +33,16 @@ def registroPersona(request):
         new.save()
         regDB=Persona(user=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"))
         regDB.save()
+        mensaje='Usuario '+regDB.nombrePersona+' Registrado'
     form=RegistrarPersonaForm()
-    return render(request,"registro.html",{'form':form,'personas':personas,'registro':registro,'titulo':"Registro",})
+    return render(request,"registro.html",{'form':form,'personas':personas,'registro':registro,'titulo':"Registro",'mensaje':mensaje})
 
 # Registro de Personas para Admin (DESDE DENTRO DEL SISTEMA)
 @login_required(login_url='login')
 def registroAdmin(request):
     actual=request.user
-    registro=2
+    mensaje=""
+    registro=2 # Dependiendo este Numero es el Formulario que Mostrará
     personas=Persona.objects.all()
     form=RegistrarAdminForm(request.POST or None)
     if form.is_valid():
@@ -48,7 +50,7 @@ def registroAdmin(request):
         new=User.objects.create_user(data.get("rutPersona"),data.get("mailPersona"),data.get("passwordPersona"))
         # Tipo es Tomado del Formulario (El ComboBox/ChoiceField)
         tipo = data.get("tipoPersona") # Lo Guardo en una Variable para evitar posibles Problemas
-        if tipo == '1': # Verifica el Texto tomado del ComboBox/ChoiceField
+        if tipo == 'Usuario': # Verifica el Texto tomado del ComboBox/ChoiceField
             new.is_staff=False # El is_staff es un campo que viene con la clase USER, es para diferenciar los tipos de usuario,
             # SI es un usuario normal, queda en False
         else:
@@ -57,21 +59,24 @@ def registroAdmin(request):
         new.save() # IMPORTANTE PONERLE SAVE Y RECORDAR QUE LOS USUARIOS CREADOS DESDE QUE EDITAS ESTO SON LOS QUE TENDRAN LOS PRIVILEGIOS DE Admin
         regDB=Persona(user=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"),tipoPersona=data.get("tipoPersona"))
         regDB.save()
+        mensaje='Usuario '+regDB.nombrePersona+' Registrado'
     form=RegistrarAdminForm()
-    return render(request,"registro.html",{'form':form,'personas':personas,'actual':actual,'registro':registro,'titulo':"Registro",})
+    return render(request,"registro.html",{'form':form,'personas':personas,'actual':actual,'registro':registro,'titulo':"Registro",'mensaje':mensaje})
 
 # Registro de Perro NUEVO (RESCATADO O DISPONIBLE)
 @login_required(login_url='login')
 def registroPerro(request):
     actual=request.user
+    mensaje=""
     perros=Mascota.objects.all()
     form=RegistrarMascotaForm(request.POST, request.FILES)
     if form.is_valid():
         data=form.cleaned_data
-        regDB=Mascota(imagen=data.get("imagen"),nombreMascota=data.get("nombreMascota"),razaMascota=data.get("razaMascota"),descripcionMascotra=data.get("descripcionMascotra"),estadoMascota=data.get("estadoMascota"))
+        regDB=Mascota(imagen=data.get("imagen"),nombreMascota=data.get("nombreMascota"),razaMascota=data.get("razaMascota"),descripcion=data.get("descripcion"),estadoMascota=data.get("estadoMascota"))
         regDB.save()
+        mensaje='Perro '+regDB.nombreMascota+' Registrado'
     form = RegistrarMascotaForm()
-    return render(request, "registroPerro.html", {'form': form, 'perros':perros, 'actual':actual,'titulo':"Registro Perro",})
+    return render(request, "registroPerro.html", {'form': form, 'perros':perros, 'actual':actual,'titulo':"Registro Perro",'mensaje':mensaje})
 
 # Registro de Mascota (ADOPCION)
 # REGISTRO DE MASCOTA CON PERSONA
@@ -89,6 +94,7 @@ def registroPerro(request):
 # ------------------------------------------ AUTENTICACIONES y USUARIOS ------------------------------------------
 # Login
 def ingreso(request):
+    mensaje=""
     form=LoginForm(request.POST or None)
     if form.is_valid():
         data=form.cleaned_data
@@ -96,7 +102,9 @@ def ingreso(request):
         if user is not None:
             login(request,user)
             return redirect('/')
-    return render(request,"login.html",{'form':form,'titulo':"Login",})
+        else:
+            mensaje='Datos Invalidos'
+    return render(request,"login.html",{'form':form,'titulo':"Login",'mensaje':mensaje})
 
 # Logout
 def salir(request):
@@ -140,3 +148,18 @@ def restablecer(request):
         return render(request,"restablecer.html",{'form':form, 'username':username, 'mensaje':mensaje, 'titulo':"Restablecer Contraseña",})
     else:
         return redirect('/login/')
+
+# ------------------------------------------ GESTION ------------------------------------------
+# Lista de Perros
+@login_required(login_url='login')
+def listaPerro(request):
+    actual=request.user
+    perros=Mascota.objects.all()
+    return render (request,"listaPerro.html",{'perros':perros,'actual':actual,'titulo':"Lista de Perros",})
+
+# Lista de Personas
+@login_required(login_url='login')
+def listaPersona(request):
+    actual=request.user
+    personas=Persona.objects.all()
+    return render (request,"listaPersona.html",{'personas':personas,'actual':actual,'titulo':"Lista de Personas",})

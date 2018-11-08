@@ -37,6 +37,25 @@
 	align-self: center;
 }
 
+table{
+	width: 99%;
+	border: 1px solid black;
+	padding: 5px;
+	margin: 5px;
+}
+
+#top{
+			font-weight: bold;
+}
+
+table td{
+		border: 1px solid black;
+		text-align: center;
+}
+
+
+
+
 @media screen and (max-width: 800px) {
 
 .formu{

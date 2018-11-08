@@ -9,6 +9,10 @@
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Registrar" class="btn-enviar">
+
+      {% if mensaje != "" %}
+        <script languaje='javascript'>alert('{{mensaje}}')</script>
+      {% endif %}
   </form>
 {% else %}
   {% if actual.is_staff %}
@@ -17,6 +21,9 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Registrar" class="btn-enviar">
+        {% if mensaje != "" %}
+          <script languaje='javascript'>alert('{{mensaje}}')</script>
+        {% endif %}
     </form>
   {% else %}
     <form class="formu">
@@ -24,16 +31,19 @@
     </form>
   {% endif %}
 {% endif %}
-  <!-- <table>
-  {% if personas %}
-    <td>
-      <tr>Rut Nombre Persona</tr>
-    </td>
-    {% for p in personas %}
-      <tr>{{ p.user.username }}{{ p.nombrePersona }}</tr>
-    {% endfor %}
-  {% else %}
-    SIN PERSONAS
-  {% endif %}
-  </table> -->
+
+<!-- <table>
+{% if personas %}
+  <td>
+    <tr>Rut Nombre Persona</tr><br>
+  </td>
+  {% for p in personas %}
+    <tr>{{ p.user.username }} {{ p.nombrePersona }} {{ p.regionPersona }}</tr>
+    <br>
+  {% endfor %}
+{% else %}
+  SIN PERSONAS
+{% endif %}
+</table> -->
+
 {% endblock %}

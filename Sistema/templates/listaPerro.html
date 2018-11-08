@@ -1,0 +1,65 @@
+{% extends 'maqueta.html' %}
+{% load staticfiles %}
+{% block principal %}
+<link rel="stylesheet" href="{% static 'css/formulario.css' %}">
+    <div class="formu">
+      <h1>Lista de Perros</h1>
+            <table>
+              <!-- Si el Usuario Logueado es Admin, entonces muestra estos campos en la Tabla  -->
+                {% if actual.is_staff %}
+                  <tr>
+                    <td id="top">Nombre</td>
+                    <td id="top">Raza</td>
+                    <td id="top">Descripcion</td>
+                    <td id="top">Foto</td>
+                    <td id="top">Estado</td>
+                    <td id="top">Acciones</td>
+                  </tr>
+                  <tbody>
+                    {% if perros %}
+                    <!-- Si hay Perros Ingresados al Sistema, los Muestra -->
+                        {% for p in perros %}
+                        <tr>
+                            <td>{{ p.nombreMascota }}</td>
+                            <td>{{ p.razaMascota }}</td>
+                            <td>{{ p.descripcion }}</td>
+                            <td><img src='{{ p.imagen|cut:"Sistema" }}' width="100px" height="50px"></td>
+                            <td>{{ p.estadoMascota }}</td>
+                            <td>Eliminar, Editar</td>
+                        </tr>
+                        {%endfor%}
+                    {% else %}
+                    <!-- Si hay Perros Ingresados al Sistema, los Muestra -->
+                      <h1>No hay Perros Registrados</h1>
+                    {% endif %}
+                  </tbody>
+                {% else %}
+                <!-- Si el Usuario Logueado NO es Admin, entonces no Muestra las Acciones  -->
+                  <tr>
+                    <td id="top">Nombre</td>
+                    <td id="top">Raza</td>
+                    <td id="top">Descripcion</td>
+                    <td id="top">Foto</td>
+                    <td id="top">Estado</td>
+                  </tr>
+                  <tbody>
+                    {% if perros %}
+                    <!-- Si hay Perros Ingresados al Sistema, los Muestra -->
+                        {% for p in perros %}
+                        <tr>
+                            <td>{{ p.nombreMascota }}</td>
+                            <td>{{ p.razaMascota }}</td>
+                            <td>{{ p.descripcion }}</td>
+                            <td><img src='{{ p.imagen|cut:"Sistema" }}' width="100px" height="50px"></td>
+                            <td>{{ p.estadoMascota }}</td>
+                        </tr>
+                        {%endfor%}
+                    {% else %}
+                    <!-- Si hay Perros Ingresados al Sistema, los Muestra -->
+                      <h1>No hay Perros Registrados</h1>
+                    {% endif %}
+                  </tbody>
+                {% endif %}
+        </table>
+        </div>
+{% endblock %}

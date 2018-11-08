@@ -1,19 +1,25 @@
 from django import forms
 #Tupla de Regiones
-regiones=(('1','Arica y Parinacota'),('2','Tarapacá'),('3','Antofagasta'),
-    ('4','Atacama',),
-    ('5','Coquimbo'),
-    ('6','Valparaiso'),
-    ('7','Metropolitana de Santiago'),
-    ('8',"Libertador General Bernardo O'Higgins"),
-    ('9','Maule'),
-    ('10','Biobío'),
-    ('11','La Araucanía'),
-    ('12','Los Ríos'),
-    ('13','Los Lagos'),
-    ('14','Aisén del General Carlos Ibáñez del Campo'),
-    ('15','Magallanes y de la Antártica Chilena'),
-    ('16','Ñuble'),)
+regiones=(('Arica y Parinacota','Arica y Parinacota'),('Tarapacá','Tarapacá'),('Antofagasta','Antofagasta'),
+    ('Atacama','Atacama'),
+    ('Coquimbo','Coquimbo'),
+    ('Valparaiso','Valparaiso'),
+    ('Metropolitana de Santiago','Metropolitana de Santiago'),
+    ("Libertador General Bernardo O'Higgins","Libertador General Bernardo O'Higgins"),
+    ('Maule','Maule'),
+    ('Biobío','Biobío'),
+    ('La Araucanía','La Araucanía'),
+    ('Los Ríos','Los Ríos'),
+    ('Los Lagos','Los Lagos'),
+    ('Aisén del General Carlos Ibáñez del Campo','Aisén del General Carlos Ibáñez del Campo'),
+    ('Magallanes y de la Antártica Chilena','Magallanes y de la Antártica Chilena'),
+    ('Ñuble','Ñuble'),)
+
+tipos=(('Casa con Patio Grande', 'Casa con Patio Grande'),('Casa con Patio Pequeño', 'Casa con Patio Pequeño'),('Casa sin Patio', 'Casa sin Patio'),('Departamento', 'Departamento'))
+
+razas=(('Akita Inu','Akita Inu'),('Beagle','Beagle'),('Border Collie','Border Collie'),('Boxer','Boxer'),('Bulldog','Bulldog'),('Dálmata','Dálmata'),('Golden Retriever','Golden Retriever'),
+    ('Gran Danés','Gran Danés'),('Labrador','Labrador'),('Pastor Alemán','Pastor Alemán'),('Pit Bull','Pit Bull'),('Pug','Pug'),('Quiltro','Quiltro'),('Rottweiler','Rottweiler'),
+    ('Sabueso','Sabueso'),('San Bernardo','San Bernardo'),('Terrier','Terrier'))
 
 # Formulario para Registro de una Persona
 class RegistrarPersonaForm(forms.Form):
@@ -24,11 +30,11 @@ class RegistrarPersonaForm(forms.Form):
     mailPersona=forms.EmailField(label="Email: ")
     fechaNacimiento=forms.DateField(widget=forms.SelectDateWidget(years=range(1910,2001)),label="Fecha de Nacimiento")
     numeroFono=forms.CharField(widget=forms.TextInput(),label="Telefono")
-    #----------- CAMBIAR CAMPOS
     regionPersona=forms.ChoiceField(choices=(regiones),label="Región")
+     # -------------- CAMBIAR
     ciudadPersona=forms.ChoiceField(choices=(('1', 'First and only',),),label="Ciudad")
     #-----------------
-    viviendaPersona=forms.ChoiceField(choices=(('1', 'Casa con Patio Grande'),('2', 'Casa con Patio Pequeño'),('3', 'Casa sin Patio'),('4', 'Departamento')),label="Tipo Vivienda")
+    viviendaPersona=forms.ChoiceField(choices=(tipos),label="Tipo Vivienda")
 
 # Formulario para Registro de una Persona DESDE EL ADMIN
 class RegistrarAdminForm(forms.Form):
@@ -39,12 +45,12 @@ class RegistrarAdminForm(forms.Form):
     mailPersona=forms.EmailField(label="Email: ")
     fechaNacimiento=forms.DateField(widget=forms.SelectDateWidget(years=range(1910,2001)),label="Fecha de Nacimiento")
     numeroFono=forms.CharField(widget=forms.TextInput(),label="Telefono")
-    #----------- CAMBIAR CAMPOS
     regionPersona=forms.ChoiceField(choices=(regiones),label="Región")
+    # -------------- CAMBIAR
     ciudadPersona=forms.ChoiceField(choices=(('1', 'First and only',),),label="Ciudad")
     #-----------------
-    viviendaPersona=forms.ChoiceField(choices=(('1', 'Casa con Patio Grande'),('2', 'Casa con Patio Pequeño'),('3', 'Casa sin Patio'),('4', 'Departamento')),label="Tipo Vivienda")
-    tipoPersona=forms.ChoiceField(choices=(('1', 'Usuario'),('2','Administrador'),),label="Tipo de Usuario")
+    viviendaPersona=forms.ChoiceField(choices=(tipos),label="Tipo Vivienda")
+    tipoPersona=forms.ChoiceField(choices=(('Usuario', 'Usuario'),('Administrador','Administrador'),),label="Tipo de Usuario")
 
 # Formulario para el Login
 class LoginForm(forms.Form):
@@ -64,6 +70,6 @@ class RestablecerForm(forms.Form):
 class RegistrarMascotaForm(forms.Form):
     imagen=forms.ImageField(label="Foto del Perro")
     nombreMascota=forms.CharField(widget=forms.TextInput(),label="Nombre")
-    razaMascota=forms.ChoiceField(choices=(('1', 'Akita Inu'),('2', 'Beagle'),('3', 'Border Collie'),('4', 'Boxer'),('5', 'Bulldog'),('6', 'Dálmata'),('7', 'Golden Retriever'),('8', 'Gran Danés'),('9', 'Labrador'),('10', 'Pastor Alemán'),('11', 'Pit Bull'),('12', 'Pug'),('13', 'Quiltro'),('14', 'Rottweiler'),('15', 'Sabueso'),('16', 'San Bernardo'),('17', 'Terrier')),label="Raza")
-    descripcionMascotra=forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':30}),label="Descripcion",)
-    estadoMascota=forms.ChoiceField(choices=(('1', 'Rescatado'),('2', 'Disponible'),('3', 'Adoptado')),label="Estado")
+    razaMascota=forms.ChoiceField(choices=(razas),label="Raza")
+    descripcion=forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':30}),label="Descripcion",)
+    estadoMascota=forms.ChoiceField(choices=(('Rescatado', 'Rescatado'),('Disponible', 'Disponible'),('Adoptado', 'Adoptado')),label="Estado")

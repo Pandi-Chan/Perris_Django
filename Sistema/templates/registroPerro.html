@@ -9,6 +9,9 @@
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Enviar" class="btn-enviar">
+      {% if mensaje != "" %}
+        <script languaje='javascript'>alert('{{mensaje}}')</script>
+      {% endif %}
   </form>
 {% else %}
   <form class="formu">
@@ -19,14 +22,14 @@
 <!-- <table>
 {% if perros %}
   <td>
-    <tr>ID Mascota | Nombre Mascota</tr>
+    <tr>Nombre Descripcion</tr><br>
   </td>
   {% for p in perros %}
-    <tr>{{ p.codigoMascota }}</tr>
-    <tr>{{ p.nombreMascota }}</tr>{{ p.imagen }}</tr>
+    <tr>{{ p.nombreMascota }} {{ p.descripcion }}</tr>
+    <br>
   {% endfor %}
 {% else %}
-  SIN perros
+  SIN PERROS
 {% endif %}
 </table> -->
 {% endblock %}

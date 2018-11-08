@@ -1,0 +1,50 @@
+{% extends 'maqueta.html' %}
+{% load staticfiles %}
+{% block principal %}
+<link rel="stylesheet" href="{% static 'css/formulario.css' %}">
+    <div class="formu">
+      {% if actual.is_staff %}
+      <!-- Si el Usuario es Admin, le muestra una tabla con los datos de todos los usuarios del Sistema -->
+        <h1>Lista de Personas</h1>
+              <table>
+                      <tr>
+                        <td id="top">Rut</td>
+                        <td id="top">Nombre</td>
+                        <td id="top">Apellido</td>
+                        <td id="top">Fecha de Nacimiento</td>
+                        <td id="top">Correo Electrónico</td>
+                        <td id="top">Número Telefónico</td>
+                        <td id="top">Región</td>
+                        <td id="top">Ciudad</td>
+                        <td id="top">Tipo de Casa</td>
+                        <td id="top">Tipo de Usuario</td>
+                        <td id="top">Acciones</td>
+                      </tr>
+                  <tbody>
+                  {% if personas %}
+                      {% for p in personas %}
+                      <tr>
+                          <td>{{ p.user.username }}</td>
+                          <td>{{ p.nombrePersona }}</td>
+                          <td>{{ p.apellidoPersona }}</td>
+                          <td>{{ p.fechaNacimiento }}</td>
+                          <td>{{ p.user.email }}</td>
+                          <td>{{ p.numeroFono }}</td>
+                          <td>{{ p.regionPersona }}</td>
+                          <td>{{ p.ciudadPersona }}</td>
+                          <td>{{ p.viviendaPersona }}</td>
+                          <td>{{ p.tipoPersona }}</td>
+                          <td></td>
+                      </tr>
+                      {%endfor%}
+                  {% endif %}
+              </tbody>
+          </table>
+        {% else %}
+        <!-- Si no es Admin, aparece un Mensaje de Permisos Insuficientes  -->
+          <form class="formu">
+            <h1>Sin Permisos Suficientes</h1>
+          </form>
+        {% endif %}
+        </div>
+{% endblock %}
